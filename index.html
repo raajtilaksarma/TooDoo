@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Personal Todo App</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+    />
+    <script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+			crossorigin="anonymous"
+	></script>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">TooDoo</span>
+        <span class="navbar-brand mb-0 h1" id="headingTotal"></span>
+    </nav>
+    <div class="container-fluid bg-dark" style="min-height: 100vh">
+        <div class="container">
+            <div class="jumbotron mt-4">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="spent at">Task</span>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="inputDesc"
+                        placeholder="Your Task Here"
+                        aria-label="spent On"
+                        aria-describedby="spent at"
+                    />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" id="btnAddExpenses">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul class="list-group" id="expenseTable">
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const headingEL = document.querySelector("#headingTotal");
+        const inputDescEl = document.querySelector("#inputDesc");
+        // const inputEl = document.querySelector("#inputAmount");
+        const expenseTableEl = document.querySelector("#expenseTable");
+
+        let totalExpense = 0;
+        headingEL.textContent = totalExpense;
+        let allExpenses = [];
+        function addExpenseToTotal() {
+            const expenseItem = {};
+            // const textAmount = inputEl.value;
+            const textDesc = inputDescEl.value;
+            // const expense = parseInt(textAmount,10);
+
+            // console.log({ expense });
+            expenseItem.desc = textDesc;
+            // expenseItem.amount = expense;
+            expenseItem.moment = new Date();
+            allExpenses.push(expenseItem);
+            totalExpense += 1;
+            const someText = `Tasks: ${totalExpense}`;
+            headingEL.textContent = someText;
+            const allExpenseHTML = allExpenses.map(expense => createListItem(expense));
+            const joinedAllExpenseHTML = allExpenseHTML.join("");
+            // console.log(joinedAllExpenseHTML);
+            expenseTableEl.innerHTML = joinedAllExpenseHTML;
+        }
+        const element = document.querySelector("#btnAddExpenses");
+        element.addEventListener("click", addExpenseToTotal, false);  
+        // control functions
+        function deleteItem(dateValue) {
+            allExpenses = allExpenses
+                                .filter(expense=>expense.moment.valueOf()!==dateValue);
+            totalExpense -= 1;
+            renderList(allExpenses);
+        }
+
+        function getTimeString(moment) {
+            return moment.toLocaleDateString('en-US',{
+                weekday:'long',
+                year:'numeric',
+                month:'long',
+                day:'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+        }
+        // render function
+        function renderList(newArr) {
+            const allExpenseHTML = newArr.map(expense => createListItem(expense));
+            const joinedAllExpenseHTML = allExpenseHTML.join("");
+            expenseTableEl.innerHTML = joinedAllExpenseHTML;
+            const someText = `Tasks: ${totalExpense}`;
+            headingEL.textContent = someText;
+        }
+
+        // js code for HTML
+        function createListItem({desc, amount, moment}) {
+            return `
+                <li class="list-group-item d-flex justify-content-between">
+                    <div class="d-flex flex-column">
+                        ${desc}
+                        <small class="text-muted">${getTimeString(moment)}</small>
+                    </div>
+                    <div>
+                        <button 
+                            type="button" 
+                            class="btn btn-outline-danger btn-sm"
+                            onclick="deleteItem(${moment.valueOf()})"
+                            >
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+				</li>
+                `;
+        }
+    </script>
+</body>
+</html>
