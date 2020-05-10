@@ -1,3 +1,5 @@
+[![ForTheBadge uses-js](http://ForTheBadge.com/images/badges/uses-js.svg)](http://ForTheBadge.com)
+
 # TooDoo
 A web based to-do list and task manager.
 
