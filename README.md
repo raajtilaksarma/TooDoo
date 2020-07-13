@@ -5,7 +5,7 @@ A web based to-do list and task manager.
 
 ![](/img/mobile.png)
 
-![](/img/desktop.png)
+![](/img/desktop_.png)
 
 ### Check it out 
 - [TooDoo](https://toodootasks.netlify.app/)
