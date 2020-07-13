@@ -3,11 +3,15 @@
 # TooDoo
 A web based to-do list and task manager.
 
-#### Check it out 
+![](/img/mobile.png)
+
+![](/img/desktop.png)
+
+### Check it out 
 - [TooDoo](https://toodootasks.netlify.app/)
-#### Motivation
+### Motivation
 - Getting started with basic Javascript
-#### Note
+### Note
 - This is a beginner level implementation to increase my understanding of Javascript. 
 - Features to be added gradually
 
